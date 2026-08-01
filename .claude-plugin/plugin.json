@@ -1,0 +1,10 @@
+{
+  "name": "forge",
+  "version": "0.1.0",
+  "description": "Right-sized, spec-driven delivery: rigor dial (prototype/mvp/production), grilled PRODUCT.md, agent-ready tickets, model-routed subagent execution with bounded verification loops.",
+  "author": {
+    "name": "aazevedo"
+  },
+  "license": "MIT",
+  "repository": "https://github.com/alexazevedo/forge"
+}
