@@ -1,0 +1,14 @@
+{
+  "name": "forge-marketplace",
+  "description": "forge Claude Code plugin.",
+  "owner": {
+    "name": "aazevedo"
+  },
+  "plugins": [
+    {
+      "name": "forge",
+      "source": "./",
+      "description": "Right-sized, spec-driven delivery: rigor dial, grilled PRODUCT.md, agent-ready tickets, model-routed bounded execution."
+    }
+  ]
+}
