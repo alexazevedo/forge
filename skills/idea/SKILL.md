@@ -1,6 +1,6 @@
 ---
 name: idea
-description: Use when the user brings a raw product idea to forge — grills it into a right-sized PRODUCT.md. Triggers on /forge:idea, a new product idea, or "let's build X" with no spec yet.
+description: Use when the user brings a raw product idea to forge — grills it into a right-sized PRODUCT.md. Triggers on /forge:idea, $forge:idea, a new product idea, or "let's build X" with no spec yet.
 ---
 
 # forge:idea — grill the raw idea

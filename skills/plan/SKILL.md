@@ -1,6 +1,6 @@
 ---
 name: plan
-description: Use after PRODUCT.md exists to slice the work into agent-ready tickets with executable checks and model routing. Triggers on /forge:plan.
+description: Use after PRODUCT.md exists to slice the work into agent-ready tickets with executable checks and model routing. Triggers on /forge:plan or $forge:plan.
 ---
 
 # forge:plan — tickets
@@ -30,6 +30,12 @@ downstream. If the current session model is weaker, say so before planning.
 - "Not included": explicit, so the agent doesn't gold-plate.
 
 ## Model routing (assign per ticket; user may override)
+
+The values below are portable routing tiers. In Claude Code they map directly
+to the named Anthropic model/agent definition. In Codex, map `haiku` to the
+fastest economical available model, `sonnet` to the balanced/default model,
+and `opus` to the strongest available model. Keep the ticket value stable so
+the same plan can resume on either host.
 
 | model | use for |
 |---|---|

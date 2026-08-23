@@ -1,6 +1,6 @@
 ---
 name: status
-description: Use to see forge run state or resume after a break — prints the ticket board from STATE.md and ticket statuses. Triggers on /forge:status or "where were we".
+description: Use to see forge run state or resume after a break — prints the ticket board from STATE.md and ticket statuses. Triggers on /forge:status, $forge:status, or "where were we".
 ---
 
 # forge:status — board + resume

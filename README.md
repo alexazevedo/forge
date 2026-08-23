@@ -1,9 +1,9 @@
 # forge
 
-Right-sized, spec-driven delivery for Claude Code. A raw idea becomes shipped
-code via grilling → agent-optimized tickets → model-routed subagent execution
-with bounded verification loops. The core primitive is a **rigor dial**:
-process weight scales with product class, never with tool habit.
+Right-sized, spec-driven delivery for Claude Code and Codex. A raw idea becomes
+shipped code via grilling → agent-optimized tickets → model-routed subagent
+execution with bounded verification loops. The core primitive is a **rigor
+dial**: process weight scales with product class, never with tool habit.
 
 forge replaces heavyweight single-gear pipelines (7–10 stages, 6–7 human
 gates, identical ceremony for a throwaway prototype and a production system)
@@ -12,11 +12,15 @@ with four skills and a hard interaction budget per mode.
 ## Pipeline
 
 ```
-/forge:idea    grill the raw idea → PRODUCT.md   (one question per message)
-/forge:plan    vertical-slice tickets with executable checks + model routing
-/forge:run     dispatch implementer subagents, bounded implement→check→fix loops
-/forge:status  board + cold resume from PRODUCT.md + STATE.md only
+idea    grill the raw idea → PRODUCT.md   (one question per message)
+plan    vertical-slice tickets with executable checks + model routing
+run     dispatch implementer subagents, bounded implement→check→fix loops
+status  board + cold resume from PRODUCT.md + STATE.md only
 ```
+
+Invoke skills as `/forge:idea` in Claude Code or `$forge:idea` in Codex (and
+likewise for `plan`, `run`, and `status`). Natural-language requests also
+trigger the skills.
 
 ## The dial
 
@@ -34,6 +38,8 @@ test suites, no speculative abstraction, no refactoring beyond the ticket.
 
 ## Install
 
+Claude Code:
+
 ```bash
 git clone https://github.com/alexazevedo/forge ~/dev/forge
 claude --plugin-dir ~/dev/forge        # try it in one session
@@ -41,16 +47,27 @@ claude --plugin-dir ~/dev/forge        # try it in one session
 claude plugin validate ~/dev/forge --strict
 ```
 
+Codex, from a local clone:
+
+```bash
+codex plugin marketplace add ~/dev/forge
+codex plugin add forge@forge-marketplace
+```
+
+The Claude manifest remains at `.claude-plugin/plugin.json`; the additive
+Codex manifest is `.codex-plugin/plugin.json`. Both hosts share the same skill
+files.
+
 ## Cost routing
 
 The planner assigns a model per ticket; mixed routing cuts spend 40–60%
 versus running everything on the strongest model.
 
-| model | tickets | agent def |
+| route | tickets | execution profile |
 |---|---|---|
-| haiku | boilerplate, renames, docs, config, glue, simple CRUD | agents/implementer-haiku.md |
-| sonnet | default implementation, refactors, tests | agents/implementer-sonnet.md |
-| opus | architecture, gnarly debugging, security-sensitive | agents/implementer-opus.md |
+| haiku | boilerplate, renames, docs, config, glue, simple CRUD | fastest economical model + agents/implementer-haiku.md |
+| sonnet | default implementation, refactors, tests | balanced/default model + agents/implementer-sonnet.md |
+| opus | architecture, gnarly debugging, security-sensitive | strongest model + agents/implementer-opus.md |
 | local | opt-in lane, haiku-class tasks only | nested harness (below) |
 
 Planning itself always runs on the strong model — plan quality gates
@@ -59,10 +76,9 @@ one rung up (haiku→sonnet→opus; local→haiku), once, fresh context.
 
 ## Local model lane (opt-in)
 
-Native Claude Code subagents cannot run non-Anthropic models, so `model:
-local` tickets execute via a nested harness: the orchestrator (or a thin
-haiku wrapper, for parallel local tickets) Bash-execs a headless external
-agent inside the ticket's worktree.
+`model: local` tickets execute via a nested harness rather than a native host
+subagent: the orchestrator (or a thin low-cost cloud wrapper for parallel local
+tickets) Bash-execs a headless external agent inside the ticket's worktree.
 
 1. Install a runner, e.g. [Ollama](https://ollama.com) with a coding model:
    `ollama pull qwen2.5-coder` (any haiku-class model).
@@ -84,9 +100,10 @@ is confined to the worktree. Scope local tickets to haiku-class work only.
 
 ```
 .claude-plugin/plugin.json
+.codex-plugin/plugin.json
 skills/{idea,plan,run,status}/SKILL.md   # the whole process, ≤600 lines total
-agents/implementer-{haiku,sonnet,opus}.md
-agents/reviewer.md                       # production mode only
+agents/implementer-{haiku,sonnet,opus}.md # Claude defs; Codex uses bodies inline
+agents/reviewer.md                        # production mode only
 templates/{PRODUCT,ticket,STATE}.md
 ```
 

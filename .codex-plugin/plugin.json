@@ -1,0 +1,28 @@
+{
+  "name": "forge",
+  "version": "0.1.0",
+  "description": "Right-sized, spec-driven delivery with a rigor dial, agent-ready tickets, and bounded verification loops.",
+  "author": {
+    "name": "aazevedo",
+    "url": "https://github.com/alexazevedo"
+  },
+  "homepage": "https://github.com/alexazevedo/forge",
+  "repository": "https://github.com/alexazevedo/forge",
+  "license": "MIT",
+  "keywords": ["planning", "delivery", "subagents", "prototyping"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Forge",
+    "shortDescription": "Right-sized, spec-driven software delivery",
+    "longDescription": "Turn a product idea into a right-sized specification, executable tickets, and bounded subagent delivery loops.",
+    "developerName": "aazevedo",
+    "category": "Developer Tools",
+    "capabilities": ["Planning", "Write", "Multi-agent"],
+    "websiteURL": "https://github.com/alexazevedo/forge",
+    "defaultPrompt": [
+      "Turn this product idea into a right-sized spec.",
+      "Plan this PRODUCT.md as executable tickets.",
+      "Run the approved forge tickets."
+    ]
+  }
+}

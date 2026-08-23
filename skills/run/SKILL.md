@@ -1,6 +1,6 @@
 ---
 name: run
-description: Use after tickets are approved to dispatch implementer subagents with bounded implement→check→fix loops. Triggers on /forge:run or "continue" from forge:status.
+description: Use after tickets are approved to dispatch implementer subagents with bounded implement→check→fix loops. Triggers on /forge:run, $forge:run, or "continue" from forge:status.
 ---
 
 # forge:run — dispatch + loop
@@ -19,8 +19,18 @@ it and do NOT re-ask.
 ## Dispatch (per ticket)
 
 Fresh subagent, never inherits session history. Prompt = the ticket file +
-PRODUCT.md + the ticket's listed file paths. Agent def selected by the
-ticket's `model:` field → agents/implementer-{haiku,sonnet,opus}.md.
+PRODUCT.md + the ticket's listed file paths. Detect the host from its available
+agent primitives; do not ask the user which host is running.
+
+- Claude Code: select the custom agent definition from the ticket's `model:`
+  field → agents/implementer-{haiku,sonnet,opus}.md.
+- Codex: spawn a fresh worker subagent at the corresponding routing tier from
+  forge:plan. Include the BODY (everything after frontmatter) of the matching
+  agents/implementer-{haiku,sonnet,opus}.md in the prompt as role
+  instructions. If exact model selection is unavailable, use the inherited
+  model and preserve the selected role instructions; the Claude model labels
+  are routing tiers, not a reason to block dispatch.
+
 Set `status: doing` in the ticket before dispatch.
 
 ## The loop (inside the implementer, bounded)
@@ -40,13 +50,12 @@ infinite-loop; never silently lower the bar.
 
 ## local tickets (only when routing_profile: cloud+local)
 
-`model: local` runs via a NESTED HARNESS, not a native subagent (native
-subagents cannot run non-Anthropic models): Bash-exec the `local_exec:`
-command template from PRODUCT.md inside the ticket's worktree. Sequential →
-the orchestrator execs it directly; parallel → a thin haiku wrapper
-subagent execs it. Harness stdout goes to a log file, never into
-orchestrator context. The local model NEVER judges its own work — check
-execution, attempt counting, and escalation stay with the orchestrator.
+`model: local` runs via a NESTED HARNESS, not a native host subagent:
+Bash-exec the `local_exec:` command template from PRODUCT.md inside the
+ticket's worktree. Sequential → the orchestrator execs it directly; parallel
+→ a thin lowest-cost cloud worker execs it. Harness stdout goes to a log file,
+never into orchestrator context. The local model NEVER judges its own work —
+check execution, attempt counting, and escalation stay with the orchestrator.
 Confine the harness to the worktree.
 
 ## After every ticket
@@ -67,6 +76,8 @@ micro-ticket (usually haiku). Never batch-merge.
 - prototype: all checks green = done. No further gate — approval budget
   (1) already spent at plan.
 - mvp: show a diff summary for final review. (Approval 2 of 2.)
-- production: one reviewer pass (agents/reviewer.md) over the WHOLE diff,
-  single round — findings become new tickets; no re-review ping-pong. Then
-  final review with the user. (Approval 3 of 3.)
+- production: one reviewer pass over the WHOLE diff, single round. Claude Code
+  uses agents/reviewer.md as its custom agent; Codex spawns a fresh reviewer
+  subagent with that file's body as role instructions. Findings become new
+  tickets; no re-review ping-pong. Then final review with the user. (Approval
+  3 of 3.)
