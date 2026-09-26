@@ -30,6 +30,10 @@ don't ask — confirm in passing.
 - ONE question per message. Multiple-choice preferred. ALWAYS include your
   recommended answer so the user can just say "yes".
 - If the codebase can answer a question, explore instead of asking.
+- If a product brief already exists (PRD.md, docs/discovery*.md, or one the
+  user points to — e.g. output of /product-manager or /startup-advisor),
+  treat it as answered questions. Ask only what it leaves open; the cap still
+  applies.
 - Count your questions. Stop at the mode's cap — or earlier, the moment you
   can state the idea sharply. The cap is a ceiling, not a quota.
 - Grill on: who it's for, the one job it must do, what's explicitly out,

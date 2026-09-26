@@ -22,6 +22,11 @@ Invoke skills as `/forge:idea` in Claude Code or `$forge:idea` in Codex (and
 likewise for `plan`, `run`, and `status`). Natural-language requests also
 trigger the skills.
 
+Upstream personas are deliberately outside the pipeline: run `/startup-advisor`
+(should this exist?) or `/product-manager` (smallest valuable slice?) first,
+save the result as `PRD.md` or `docs/discovery*.md`, and `forge:idea` consumes
+it as pre-answered grill questions.
+
 ## The dial
 
 | | prototype | mvp | production |
