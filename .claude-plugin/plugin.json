@@ -1,6 +1,6 @@
 {
   "name": "forge",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Right-sized, spec-driven delivery: rigor dial (prototype/mvp/production), grilled PRODUCT.md, agent-ready tickets, model-routed subagent execution with bounded verification loops.",
   "author": {
     "name": "aazevedo"
