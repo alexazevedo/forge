@@ -7,7 +7,7 @@ dial**: process weight scales with product class, never with tool habit.
 
 forge replaces heavyweight single-gear pipelines (7–10 stages, 6–7 human
 gates, identical ceremony for a throwaway prototype and a production system)
-with four skills and a hard interaction budget per mode.
+with five skills and a hard interaction budget per mode.
 
 ## Pipeline
 
@@ -16,6 +16,7 @@ idea    grill the raw idea → PRODUCT.md   (one question per message)
 plan    vertical-slice tickets with executable checks + model routing
 run     dispatch implementer subagents, bounded implement→check→fix loops
 status  board + cold resume from PRODUCT.md + STATE.md only
+auto    mode + vision → owner-proxy agent answers the grill, chains idea→plan→run, writes REPORT.md
 ```
 
 Invoke skills as `/forge:idea` in Claude Code or `$forge:idea` in Codex (and
@@ -40,6 +41,35 @@ it as pre-answered grill questions.
 
 Prototype mode explicitly PERMITS what heavyweight processes forbid: no unit
 test suites, no speculative abstraction, no refactoring beyond the ticket.
+
+## Auto mode (owner proxy)
+
+End-to-end delivery with an owner proxy: supply only the product class and vision,
+the forge owner agent answers all grill questions and holds gate authority per mode.
+DIVERGE tags in the grill log measure whether the owner diverged from forge's
+recommendation—use them to tune the profile (`~/.forge/owner.md`) towards your
+preferences. Copy the template:
+
+```bash
+cp templates/owner.md ~/.forge/owner.md
+```
+
+Gate authority by mode:
+
+| mode | proxy answers grill | proxy approves | human touch |
+|---|---|---|---|
+| prototype | yes | all | pick mode, read report |
+| mvp | yes | spec + tickets | final diff review in REPORT.md |
+| production | yes | none, drafts only | spec, plan, final |
+
+Headless run (e.g. CI/CD without terminal):
+
+```bash
+claude -p --permission-mode auto "/forge:auto prototype '<vision>'"
+```
+
+Codex: `$forge:auto`. In headless mode, a gate blocks the run; re-running shows it again and
+approval requires an interactive reply via terminal or Remote Control.
 
 ## Install
 
@@ -106,10 +136,9 @@ is confined to the worktree. Scope local tickets to haiku-class work only.
 ```
 .claude-plugin/plugin.json
 .codex-plugin/plugin.json
-skills/{idea,plan,run,status}/SKILL.md   # the whole process, ≤600 lines total
-agents/implementer-{haiku,sonnet,opus}.md # Claude defs; Codex uses bodies inline
-agents/reviewer.md                        # production mode only
-templates/{PRODUCT,ticket,STATE}.md
+skills/{idea,plan,run,status,auto}/SKILL.md   # the whole process, ≤600 lines total
+agents/{implementer-{haiku,sonnet,opus},owner,reviewer}.md # Claude defs; Codex uses bodies inline
+templates/{PRODUCT,ticket,STATE,owner}.md
 ```
 
 ## Philosophy

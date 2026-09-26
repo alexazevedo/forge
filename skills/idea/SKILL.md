@@ -40,6 +40,18 @@ don't ask — confirm in passing.
   what "done" looks like. Never grill on implementation detail — that is
   forge:plan's job.
 
+## Owner proxy (owner: agent)
+
+If `owner: agent` (PRODUCT.md frontmatter or the prompt), ask the user
+nothing. Dispatch `forge:owner` per question (Agent tool; Codex: inline
+`agents/owner.md`'s body) with vision, `~/.forge/owner.md` if present,
+PRODUCT.md and grill log so far, the question + your recommendation, and
+the mode — never asked of the owner. Parse `ANSWER`/`TAG`/`REASON`; append
+a row to `## Grill log`. Caps still apply. ESCALATE: prototype takes
+ANSWER's smallest-scope option and logs it; mvp/production stop, write
+STATE.md Blockers, tell the user. Gate unchanged: prototype/mvp say
+"next: /forge:plan"; production shows PRODUCT.md and waits for the human.
+
 ## Output: PRODUCT.md
 
 Write from templates/PRODUCT.md at the repo root. Frontmatter: `mode`,

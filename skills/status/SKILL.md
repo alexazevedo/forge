@@ -11,12 +11,15 @@ Do not read ticket bodies, source files, or chat history to answer.
 Print the board:
 
 ```
-forge: <product> [mode]
+forge: <product> [mode] [owner: human|agent]
 done:    01 slug, 02 slug
 doing:   03 slug
 blocked: 05 slug — <first line of its diagnosis, from STATE.md Blockers>
 next:    04 slug (sonnet), 06 slug (haiku)
+grill: N answers, D diverge, E escalate
 ```
+
+Grill line only if PRODUCT.md has a `## Grill log` (counts by tag).
 
 Then offer exactly one action: "continue" → re-enter forge:run (which
 reuses the execution choice recorded in STATE.md Decisions — no re-asking).

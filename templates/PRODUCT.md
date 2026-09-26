@@ -2,6 +2,7 @@
 mode: prototype                # prototype | mvp | production
 routing_profile: cloud         # cloud | cloud+local (local is opt-in, never a default)
 parallel_default: sequential   # sequential | parallel
+owner: human                   # human | agent (set by forge:auto)
 # local_exec: ollama launch claude --model <local-model> --yes -- -p "{ticket}"
 #   ^ required iff routing_profile is cloud+local — command template the nested
 #     local harness runs inside the ticket worktree. Alternatives:
@@ -23,3 +24,8 @@ As <who>, I <do what> so that <payoff>.
 Done when I can <one sentence, observable>.
 
 <!-- body word caps by mode: prototype 250, mvp 600, production 1 page (+ ADRs if warranted) -->
+
+## Grill log
+<!-- present only when owner: agent; outside the word cap -->
+| # | question | recommendation | answer | tag |
+|---|----------|----------------|--------|-----|

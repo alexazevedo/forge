@@ -63,3 +63,9 @@ which are independent (parallelizable). Then:
 - production: approve the plan. (Approval 2 of 3.)
 
 Nothing runs before this approval.
+
+Under `owner: agent`: prototype / mvp dispatch `forge:owner` once with
+PRODUCT.md + the ticket summary, asking "APPROVE or list blocking
+objections." Parse `ANSWER`/`TAG`: AGREE → proceed; DIVERGE → revise
+tickets once, then proceed. production: print the summary, say approval
+is pending, stop — approval 2 of 3 stays human.

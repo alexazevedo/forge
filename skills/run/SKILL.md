@@ -16,6 +16,9 @@ beyond that, merge conflicts and human review capacity are the bottleneck,
 not compute. Record the choice under STATE.md → Decisions; on resume, reuse
 it and do NOT re-ask.
 
+Under `owner: agent`: skip the question — answer from `parallel_default`,
+recorded under STATE.md → Decisions the same way.
+
 ## Dispatch (per ticket)
 
 Fresh subagent, never inherits session history. Prompt = the ticket file +
@@ -81,3 +84,7 @@ micro-ticket (usually haiku). Never batch-merge.
   subagent with that file's body as role instructions. Findings become new
   tickets; no re-review ping-pong. Then final review with the user. (Approval
   3 of 3.)
+- Under `owner: agent`: prototype → same, no gate. mvp → write the diff
+  summary into `REPORT.md` under "Final review" instead of waiting.
+  production → same reviewer pass, then stop and say final review is
+  pending (human approval stays).
